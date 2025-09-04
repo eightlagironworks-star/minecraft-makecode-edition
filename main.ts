@@ -2,101 +2,126 @@ namespace SpriteKind {
     export const Passive = SpriteKind.create()
     export const Block = SpriteKind.create()
 }
-
-browserEvents.B.onEvent(browserEvents.KeyEvent.Pressed, function on_b_key_pressed() {
-    
-    mySprite5 = sprites.create(img`
-            ..ff...ff11f..ff....
-            .f11f..f1ff1ff11f...
-            .f11ffffffffff11f...
-            .f111f1111111f11f...
-            .f11f111111111f11f..
-            .f11f111111111f11f..
-            ..fffffff1ffffffff..
-            ....ff1ff1ff1ff.....
-            ...fff1ff1ff1fff....
-            ..f1f121111112f1f...
-            ...ff21f1f1f21f1f...
-            .....f11f1f11fff....
-            ......fffffff.......
-            ......f11f11f.......
-            ......f1f111f.......
-            ......f11f11f.......
-            .....ff1f111ff......
-            .....f1111111f......
-            .....f1111111f......
-            .....f1111111f......
-            .....f1111111f......
-            .....fffffffff......
-            ....................
-            ....................
-            ....................
-            ....................
-            ....................
-            ....................
-            ....................
-            ....................
-            `, SpriteKind.Player)
+/**
+ * Game under development!
+ */
+/**
+ * Shows title
+ */
+// places blocks
+browserEvents.MouseRight.onEvent(browserEvents.MouseButtonEvent.Pressed, function (x2, y2) {
+    Brick = sprites.createProjectileFromSprite(img`
+        e e e e e f e e e e e e e e e f 
+        e e e e e f e e e e e e e e e f 
+        f f f f f f f f f f f f f f f f 
+        e f e e e e e e e e f e e e e e 
+        e f e e e e e e e e f e e e e e 
+        f f f f f f f f f f f f f f f f 
+        e e e e e f e e e e e e e e e f 
+        e e e e e f e e e e e e e e e f 
+        f f f f f f f f f f f f f f f f 
+        e e e e e e f e e e e e e e e f 
+        e e e e e e f e e e e e e e e f 
+        f f f f f f f f f f f f f f f f 
+        e e e f e e e e e e e e f e e e 
+        e e e f e e e e e e e e f e e e 
+        f f f f f f f f f f f f f f f f 
+        e e e e e e e f e e e e e e e e 
+        `, Steve, 0, 0)
+    grid.snap(Brick)
+    Steve.setKind(SpriteKind.Block)
 })
-//  Plays game
-browserEvents.MouseWheel.onEvent(browserEvents.MouseButtonEvent.Pressed, function on_mouse_wheel_button_pressed(x: any, y: any) {
-    
+// blows up creeper
+sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite2, otherSprite2) {
+    info.changeLifeBy(-1)
+    sprites.destroy(otherSprite2, effects.fire, 500)
+})
+browserEvents.B.onEvent(browserEvents.KeyEvent.Pressed, function () {
+    mySprite5 = sprites.create(img`
+        ..ff...ff11f..ff....
+        .f11f..f1ff1ff11f...
+        .f11ffffffffff11f...
+        .f111f1111111f11f...
+        .f11f111111111f11f..
+        .f11f111111111f11f..
+        ..fffffff1ffffffff..
+        ....ff1ff1ff1ff.....
+        ...fff1ff1ff1fff....
+        ..f1f121111112f1f...
+        ...ff21f1f1f21f1f...
+        .....f11f1f11fff....
+        ......fffffff.......
+        ......f11f11f.......
+        ......f1f111f.......
+        ......f11f11f.......
+        .....ff1f111ff......
+        .....f1111111f......
+        .....f1111111f......
+        .....f1111111f......
+        .....f1111111f......
+        .....fffffffff......
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        ....................
+        `, SpriteKind.Player)
+})
+// Plays game
+browserEvents.MouseWheel.onEvent(browserEvents.MouseButtonEvent.Pressed, function (x, y) {
     info.setLife(3)
     sprites.destroy(mySprite)
     sprites.destroy(mySprite2)
     Steve = sprites.create(img`
-            ......eeeeeeee......
-            ......eeeeeeee......
-            ......edddddde......
-            ......dddddddd......
-            ......d18dd81d......
-            ......dddeeddd......
-            ......ddeddedd......
-            ......ddeeeedd......
-            ..999668dddd866666..
-            ..9666668dd8666666..
-            ..9666666886666666..
-            ..6666666666666666..
-            ..dddd66666666dddd..
-            ..dddd66666666dddd..
-            ..dddd66666666dddd..
-            ..dddd66666699dddd..
-            ..dddd66669999dddd..
-            ..dddd99999999dddd..
-            ..dddd99999999dddd..
-            ..edde99999696edde..
-            ..eeee99996666eeee..
-            ......8888c666......
-            ......88888c66......
-            ......888888c6......
-            ......8888888c......
-            ......8cc88cc8......
-            ......88888888......
-            ......88888888......
-            ......bbbbbbbb......
-            ......bbbbbbbb......
-            `, SpriteKind.Player)
+        ......eeeeeeee......
+        ......eeeeeeee......
+        ......edddddde......
+        ......dddddddd......
+        ......d18dd81d......
+        ......dddeeddd......
+        ......ddeddedd......
+        ......ddeeeedd......
+        ..999668dddd866666..
+        ..9666668dd8666666..
+        ..9666666886666666..
+        ..6666666666666666..
+        ..dddd66666666dddd..
+        ..dddd66666666dddd..
+        ..dddd66666666dddd..
+        ..dddd66666699dddd..
+        ..dddd66669999dddd..
+        ..dddd99999999dddd..
+        ..dddd99999999dddd..
+        ..edde99999696edde..
+        ..eeee99996666eeee..
+        ......8888c666......
+        ......88888c66......
+        ......888888c6......
+        ......8888888c......
+        ......8cc88cc8......
+        ......88888888......
+        ......88888888......
+        ......bbbbbbbb......
+        ......bbbbbbbb......
+        `, SpriteKind.Player)
     controller.moveSprite(Steve)
     scene.cameraFollowSprite(Steve)
     scene.setBackgroundColor(9)
-    tiles.setCurrentTilemap(tilemap`
-        level1
-        `)
-    music.play(music.createSong(assets.song`
-            Minecraft
-            `), music.PlaybackMode.LoopingInBackground)
+    tiles.setCurrentTilemap(tilemap`level1`)
+    music.play(music.createSong(assets.song`Minecraft`), music.PlaybackMode.LoopingInBackground)
 })
-//  stops mods from getting in your base
-info.onLifeZero(function on_life_zero() {
+// stops mods from getting in your base
+info.onLifeZero(function () {
     sprites.destroy(Steve)
     sprites.destroy(mySprite)
     sprites.destroy(mySprite2)
     sprites.destroy(mySprite3)
     sprites.destroy(mySprite5)
     sprites.destroy(Brick)
-    tiles.setCurrentTilemap(tilemap`
-        level2
-        `)
+    tiles.setCurrentTilemap(tilemap`level2`)
     scene.setBackgroundImage(img`
         2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
         2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
@@ -220,47 +245,16 @@ info.onLifeZero(function on_life_zero() {
         2222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222222
         `)
 })
-//  places blocks
-browserEvents.MouseRight.onEvent(browserEvents.MouseButtonEvent.Pressed, function on_mouse_right_button_pressed(x2: any, y2: any) {
-    
-    Brick = sprites.createProjectileFromSprite(img`
-            e e e e e f e e e e e e e e e f
-            e e e e e f e e e e e e e e e f
-            f f f f f f f f f f f f f f f f
-            e f e e e e e e e e f e e e e e
-            e f e e e e e e e e f e e e e e
-            f f f f f f f f f f f f f f f f
-            e e e e e f e e e e e e e e e f
-            e e e e e f e e e e e e e e e f
-            f f f f f f f f f f f f f f f f
-            e e e e e e f e e e e e e e e f
-            e e e e e e f e e e e e e e e f
-            f f f f f f f f f f f f f f f f
-            e e e f e e e e e e e e f e e e
-            e e e f e e e e e e e e f e e e
-            f f f f f f f f f f f f f f f f
-            e e e e e e e f e e e e e e e e
-            `, Steve, 0, 0)
-    grid.snap(Brick)
-    Steve.setKind(SpriteKind.Block)
-})
-sprites.onOverlap(SpriteKind.Block, SpriteKind.Enemy, function on_on_overlap(sprite: Sprite, otherSprite: Sprite) {
+sprites.onOverlap(SpriteKind.Block, SpriteKind.Enemy, function (sprite, otherSprite) {
     sprites.destroy(otherSprite, effects.ashes, 500)
 })
-//  blows up creeper
-sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function on_on_overlap2(sprite2: Sprite, otherSprite2: Sprite) {
-    info.changeLifeBy(-1)
-    sprites.destroy(otherSprite2, effects.fire, 500)
-})
-/** Game under development! */
-/** Shows title */
-let mySprite4 : Sprite = null
-let Brick : Sprite = null
-let mySprite3 : Sprite = null
-let Steve : Sprite = null
-let mySprite5 : Sprite = null
-let mySprite : Sprite = null
-let mySprite2 : Sprite = null
+let mySprite4: Sprite = null
+let mySprite3: Sprite = null
+let mySprite5: Sprite = null
+let Steve: Sprite = null
+let Brick: Sprite = null
+let mySprite: Sprite = null
+let mySprite2: Sprite = null
 console.log("Execute game file:: Steve.bit =true")
 scene.setBackgroundImage(img`
     9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999
@@ -385,100 +379,98 @@ scene.setBackgroundImage(img`
     7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777777
     `)
 mySprite2 = sprites.create(img`
-        c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c
-        c b b b f f f b b f b b b b b f f f f b b f b b b f b b b b 7 7 7 7 7 b b b b d
-        c b b b f b f b b f b b b b b f b b f b b b f b f b b b b b 7 e 7 e 7 b b b b d
-        c b b b f f f b b f b b b b b f f f f b b b b f b b b b b b e e e e e b b b b d
-        c b b b f b b b b f b b b b b f b b f b b b b f b b b b b b e e e e e b b b b d
-        c b b b f b b b b f f f b b b f b b f b b b b f b b b b b b e e e e e b b b b d
-        c d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d
-        `, SpriteKind.Player)
+    c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c c 
+    c b b b f f f b b f b b b b b f f f f b b f b b b f b b b b 7 7 7 7 7 b b b b d 
+    c b b b f b f b b f b b b b b f b b f b b b f b f b b b b b 7 e 7 e 7 b b b b d 
+    c b b b f f f b b f b b b b b f f f f b b b b f b b b b b b e e e e e b b b b d 
+    c b b b f b b b b f b b b b b f b b f b b b b f b b b b b b e e e e e b b b b d 
+    c b b b f b b b b f f f b b b f b b f b b b b f b b b b b b e e e e e b b b b d 
+    c d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d d 
+    `, SpriteKind.Player)
 mySprite = sprites.create(img`
-        f f f . . . . . . . . . . . . .
-        f 9 f f . . . . . . . . . . . .
-        f f 9 1 f f . . . . . . . . . .
-        . f 9 9 1 1 f f . . . . . . . .
-        . . f 9 1 1 1 1 f f f . . . . .
-        . . f 9 9 1 1 1 1 1 f . . . . .
-        . . . f 9 1 1 1 1 f . . . . . .
-        . . . f 9 1 1 1 1 f f . . . . .
-        . . . . f 9 9 1 1 1 f . . . . .
-        . . . . f 9 f f 1 1 1 f . . . .
-        . . . . f f . f f 1 1 f . . . .
-        . . . . . . . . . f f f . . . .
-        . . . . . . . . . . . . . . . .
-        . . . . . . . . . . . . . . . .
-        . . . . . . . . . . . . . . . .
-        . . . . . . . . . . . . . . . .
-        `, SpriteKind.Player)
-//  spawns mobs
-game.onUpdateInterval(5000, function on_update_interval() {
-    
+    f f f . . . . . . . . . . . . . 
+    f 9 f f . . . . . . . . . . . . 
+    f f 9 1 f f . . . . . . . . . . 
+    . f 9 9 1 1 f f . . . . . . . . 
+    . . f 9 1 1 1 1 f f f . . . . . 
+    . . f 9 9 1 1 1 1 1 f . . . . . 
+    . . . f 9 1 1 1 1 f . . . . . . 
+    . . . f 9 1 1 1 1 f f . . . . . 
+    . . . . f 9 9 1 1 1 f . . . . . 
+    . . . . f 9 f f 1 1 1 f . . . . 
+    . . . . f f . f f 1 1 f . . . . 
+    . . . . . . . . . f f f . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, SpriteKind.Player)
+// spawns mobs
+game.onUpdateInterval(5000, function () {
     if (Math.percentChance(32)) {
         mySprite3 = sprites.create(img`
-                . . . . 7 f f 7 5 f f 5 . . . .
-                . . . . 5 f 2 7 7 2 f 7 . . . .
-                . . . . 7 5 7 5 7 5 7 5 . . . .
-                . . . . 7 5 7 f f 7 5 7 . . . .
-                . . . . 5 7 f f f f 7 5 . . . .
-                . . . . 7 f f 7 5 f f 7 . . . .
-                . . . . . 7 7 5 7 7 7 . . . . .
-                . . . . . 7 7 7 f 7 7 . . . . .
-                . . . . . 7 f 7 7 5 7 . . . . .
-                . . . . . 7 f f f f 7 . . . . .
-                . . . . . 7 5 7 7 7 7 . . . . .
-                . . . . . 7 7 5 f f 7 . . . . .
-                . . . . . f 7 7 f 7 7 . . . . .
-                . . . f 7 f . . . . 7 5 7 . . .
-                . . . f 7 f . . . . 7 5 5 . . .
-                . . . f f f . . . . f f f . . .
-                `, SpriteKind.Enemy)
+            . . . . 7 f f 7 5 f f 5 . . . . 
+            . . . . 5 f 2 7 7 2 f 7 . . . . 
+            . . . . 7 5 7 5 7 5 7 5 . . . . 
+            . . . . 7 5 7 f f 7 5 7 . . . . 
+            . . . . 5 7 f f f f 7 5 . . . . 
+            . . . . 7 f f 7 5 f f 7 . . . . 
+            . . . . . 7 7 5 7 7 7 . . . . . 
+            . . . . . 7 7 7 f 7 7 . . . . . 
+            . . . . . 7 f 7 7 5 7 . . . . . 
+            . . . . . 7 f f f f 7 . . . . . 
+            . . . . . 7 5 7 7 7 7 . . . . . 
+            . . . . . 7 7 5 f f 7 . . . . . 
+            . . . . . f 7 7 f 7 7 . . . . . 
+            . . . f 7 f . . . . 7 5 7 . . . 
+            . . . f 7 f . . . . 7 5 5 . . . 
+            . . . f f f . . . . f f f . . . 
+            `, SpriteKind.Enemy)
         mySprite3.follow(Steve)
         mySprite3.setPosition(0, 0)
     } else if (Math.percentChance(50)) {
         mySprite4 = sprites.create(img`
-                    ....................
-                    .3333333............
-                    .3333333............
-                    .3333333............
-                    .f133333............
-                    33333333............
-                    333333333333333333..
-                    333333333333333333.3
-                    .333333333333333333.
-                    .....3333333333333.3
-                    .....3333333333333..
-                    .....3333333333333..
-                    .....3333333333333..
-                    .....333.......333..
-                    .....333.......333..
-                    .....333.......333..
-                    `, SpriteKind.Passive)
+            ....................
+            .3333333............
+            .3333333............
+            .3333333............
+            .f133333............
+            33333333............
+            333333333333333333..
+            333333333333333333.3
+            .333333333333333333.
+            .....3333333333333.3
+            .....3333333333333..
+            .....3333333333333..
+            .....3333333333333..
+            .....333.......333..
+            .....333.......333..
+            .....333.......333..
+            `, SpriteKind.Passive)
         mySprite4.setBounceOnWall(true)
         mySprite4.setVelocity(50, 50)
         mySprite4.setPosition(0, 0)
     } else {
         mySprite4 = sprites.create(img`
-                    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 f f f 7 7 7 7 7 7 f f f 7 5
-                    5 7 f f f 7 7 7 7 7 7 f f f 7 5
-                    5 7 f f f 7 7 7 7 7 7 f f f 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 7 7 f f f f 7 7 7 7 7 7 7 5
-                    5 7 7 7 f f f f 7 7 7 7 7 7 7 5
-                    5 7 7 7 f f f f 7 7 7 7 7 7 7 5
-                    5 7 7 7 f f f f 7 7 7 7 7 7 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5
-                    5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5
-                    `, SpriteKind.Passive)
+            5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 f f f 7 7 7 7 7 7 f f f 7 5 
+            5 7 f f f 7 7 7 7 7 7 f f f 7 5 
+            5 7 f f f 7 7 7 7 7 7 f f f 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 7 7 f f f f 7 7 7 7 7 7 7 5 
+            5 7 7 7 f f f f 7 7 7 7 7 7 7 5 
+            5 7 7 7 f f f f 7 7 7 7 7 7 7 5 
+            5 7 7 7 f f f f 7 7 7 7 7 7 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 7 7 7 7 7 7 7 7 7 7 7 7 7 7 5 
+            5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 
+            `, SpriteKind.Passive)
         mySprite4.setVelocity(50, 50)
         mySprite4.setBounceOnWall(true)
         mySprite4.setPosition(0, 0)
     }
-    
 })
